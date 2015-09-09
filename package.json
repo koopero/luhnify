@@ -1,0 +1,11 @@
+{
+  "name": "luhn-random",
+  "version": "0.0.1",
+  "description": "Generate random sequences which pass the Luhn algorithm, such as credit card numbers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
