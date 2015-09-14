@@ -4,7 +4,7 @@ A simply node.js module to generate random [Luhn algorithm](https://en.wikipedia
 
 ## Example
 
-``` javascipt
+```JavaScript
 var luhnify = require('luhnify')
 
 // Random visa credit card number.
