@@ -1,7 +1,66 @@
 var assert = require('chai').assert
   , mod = require('../index')
+  , luhnify = mod
   , validate = mod.validate
-  , generate = mod.generate
+
+describe( 'luhnify', function () {
+
+  it('will take number as input', function () {
+    var num = luhnify( 6 )
+    assert.isString( num )
+    assert.match( num, /\d{6}/ )
+    assert( validate( num ) )
+  })
+
+
+  it('will luhnify numbers in a required format', function () {
+    var num = luhnify('###')
+    assert.isString( num )
+    assert.match( num, /\d\d\d/ )
+    assert( validate( num ) )
+  })
+
+  it('will use existing numbers when generating ', function () {
+    var num = luhnify('4##')
+    assert.isString( num )
+    assert.match( num, /4\d\d/ )
+    assert( validate( num ) )
+  })
+
+  it('will pass characters other than #', function () {
+    var num = luhnify('## ABC ##')
+    assert.isString( num )
+    assert.match( num, /\d\d ABC \d\d/ )
+    assert( validate( num ) )
+  })
+
+  it('will return already valid sequences unchanged', function () {
+    var num = luhnify('43')
+    assert.isString( num )
+    assert.equal( num, '43' )
+    assert( validate( num ) )
+  })
+
+  it('will throw an exception when passed in invalid sequence', function () {
+    assert.throws( function () {
+      luhnify('44')
+    })
+  })
+
+  it('will Luhnify an almost-finished sequence', function () {
+    var num = luhnify('3779 474# 6307 647')
+    assert.equal( num, '3779 4747 6307 647')
+    assert( validate( num ) )
+  })
+
+  it('will take a different token', function () {
+    var num = luhnify('5__', '_')
+    assert.isString( num )
+    assert.match( num, /5\d\d/ )
+    assert( validate( num ) )
+  })
+})
+
 
 describe( 'validate', function () {
 
@@ -12,52 +71,7 @@ describe( 'validate', function () {
   })
 
   it('will ignore non-numeric characters', function () {
-    assert.equal( validate( '   60110 A 70319112618' ), true )
-    assert.equal( validate( '60110703191  12618' ), true )
-    assert.equal( validate( '60 11070 319112 618  ' ), true )
-    assert.equal( validate( '60110703191126A XXX  18' ), true )
+    assert.equal( validate( 'A608 B188 C272' ), true )
   })
 
-})
-
-describe( 'generate', function () {
-  it('will generate numbers in a required format', function () {
-    var num = generate('###')
-    assert.isString( num )
-    assert.match( num, /\d\d\d/ )
-    assert( validate( num ) )
-  })
-
-  it('will use existing numbers when generating ', function () {
-    var num = generate('4##')
-    assert.isString( num )
-    assert.match( num, /4\d\d/ )
-    assert( validate( num ) )
-  })
-
-  it('will pass characters other than #', function () {
-    var num = generate('## ABC ##')
-    assert.isString( num )
-    assert.match( num, /\d\d ABC \d\d/ )
-    assert( validate( num ) )
-  })
-
-  it('will return already validate sequences unchanged', function () {
-    var num = generate('43')
-    assert.isString( num )
-    assert.equal( num, '43' )
-    assert( validate( num ) )
-  })
-
-  it('will throw an exception when passed in invalid sequence', function () {
-    assert.throws( function () {
-      generate('44')
-    })
-  })
-
-  it('will Luhnify an almost-finished sequence', function () {
-    var num = generate('3779 474# 6307 647')
-    assert.equal( num, '3779 4747 6307 647')
-    assert( validate( num ) )
-  })
 })

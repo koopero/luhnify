@@ -1,14 +1,30 @@
 {
-  "name": "luhn-random",
-  "version": "0.0.1",
-  "description": "Generate random sequences which pass the Luhn algorithm, such as credit card numbers.",
+  "name": "luhnify",
+  "version": "1.0.0",
+  "description": "Generate random Luhn sequences, such as credit card numbers.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --check-leaks"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Samm Cooper <samm@sublight.ca>",
+  "keywords": [
+    "luhn",
+    "mod 10",
+    "random",
+    "credit card"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koopero/luhnify"
+  },
+  "bugs": {
+    "https://github.com/koopero/luhnify/issues"
+  },
   "devDependencies": {
     "chai": "^3.2.0"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "regex-escape": "^3.0.0"
   }
 }
