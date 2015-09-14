@@ -17,9 +17,8 @@
     "type": "git",
     "url": "https://github.com/koopero/luhnify"
   },
-  "bugs": {
-    "https://github.com/koopero/luhnify/issues"
-  },
+  "license": "MIT",
+  "bugs": "https://github.com/koopero/luhnify/issues",
   "devDependencies": {
     "chai": "^3.2.0"
   },
