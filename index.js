@@ -1,12 +1,15 @@
 module.exports = luhnify
 module.exports.validate = validate
 
-var _ = require('lodash')
+var repeat = require('lodash.repeat')
+  , isNumber = require('lodash.isnumber')
   , regexescape = require("regex-escape")
 
 function validate ( str ) {
   var sum = 0
     , even = false
+
+  str = reverseString( str )
 
   str.replace( /[0-9]/g, function ( digit ) {
     sum += parseDigit( digit, even )
@@ -25,9 +28,10 @@ function luhnify ( str, token ) {
   if ( 'string' != typeof token || token.length != 1 )
     throw new TypeError('token must be single character')
 
+  if ( isNumber( str ) )
+    str = repeat( token, str )
 
-  if ( _.isNumber( str ) )
-    str = _.repeat( token, str )
+  str = reverseString( str )
 
   var sum = 0
     , even = false
@@ -64,6 +68,7 @@ function luhnify ( str, token ) {
   }
 
   str = str.join('')
+  str = reverseString( str )
 
   if ( sum % 10 != 0 )
     throw new Error('Could not resolve sequence')
@@ -94,4 +99,13 @@ function parseDigit( digit, even ) {
     digit -= 9
 
   return digit
+}
+
+
+function reverseString(str) {
+  var newString = "";
+  for (var i = str.length - 1; i >= 0; i--) {
+    newString += str[i];
+  }
+  return newString;
 }

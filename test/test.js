@@ -35,9 +35,9 @@ describe( 'luhnify', function () {
   })
 
   it('will return already valid sequences unchanged', function () {
-    var num = luhnify('43')
+    var num = luhnify('34')
     assert.isString( num )
-    assert.equal( num, '43' )
+    assert.equal( num, '34' )
     assert( validate( num ) )
   })
 
@@ -68,6 +68,11 @@ describe( 'validate', function () {
     // Data from http://www.getcreditcardnumbers.com/
     assert.equal( validate( '4929474127112453' ), true )
     assert.equal( validate( '4929474127112452' ), false )
+  })
+
+  it('will validate more credit card numbers', function () {
+    // Data from http://www.getcreditcardnumbers.com/
+    assert.equal( validate( '4012888888881881' ), true )
   })
 
   it('will ignore non-numeric characters', function () {

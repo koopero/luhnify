@@ -1,6 +1,6 @@
 {
   "name": "luhnify",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate random Luhn sequences, such as credit card numbers.",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,8 @@
     "chai": "^3.2.0"
   },
   "dependencies": {
-    "lodash": "^3.10.1",
+    "lodash.isnumber": "^3.0.3",
+    "lodash.repeat": "^4.1.0",
     "regex-escape": "^3.0.0"
   }
 }
